@@ -1,0 +1,36 @@
+You are given the root of a binary tree and an integer distance. A pair of two different leaf nodes of a binary tree is said to be good if the length of the shortest path between them is less than or equal to distance.
+
+Return the number of good leaf node pairs in the tree.
+
+ link:https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/description/?envType=daily-question&envId=2024-07-18
+
+ class Solution:
+    def countPairs(self, root: TreeNode, distance: int) -> int:
+         
+        #from learning .. mark it to solve ..
+        count=0
+        def finddfs(root):
+            if not root :
+                return []
+            if not root.left and not root.right:
+                return [1]
+
+            leftdist=finddfs(root.left)
+            rightdist=finddfs(root.right)
+            nonlocal count
+            for i in leftdist:
+                for j in rightdist:
+                    if i+j <=distance:
+                        count+=1
+            curdist=[]
+            for i in leftdist:
+                if i+1 <=distance:
+                    curdist.append(i+1)
+
+            for i in rightdist:
+                if i+1<=distance:
+                    curdist.append(i+1)
+            return curdist
+        finddfs(root)
+        return count
+             
