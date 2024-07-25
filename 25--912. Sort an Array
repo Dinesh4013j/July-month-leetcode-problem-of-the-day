@@ -1,0 +1,89 @@
+Given an array of integers nums, sort the array in ascending order and return it.
+
+You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.
+
+ 
+
+Example 1:
+
+Input: nums = [5,2,3,1]
+Output: [1,2,3,5]
+Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).
+Example 2:
+
+Input: nums = [5,1,1,2,0,0]
+Output: [0,0,1,1,2,5]
+Explanation: Note that the values of nums are not necessairly unique.
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+
+
+        def partition (arr,left,right):
+            i=left-1
+            pivot=arr[right]
+            for j in range(left,right):
+                if arr[j]<pivot:
+                    i+=1
+                    arr[j],arr[i]=arr[i],arr[j]
+            arr[i+1],arr[right]=arr[right],arr[i+1]
+            return i+1
+        
+
+
+        def quick(arr,left,right):
+            if left<right:
+
+                pivot=partition(arr,left,right)
+                quick(arr,left,pivot-1)
+                quick(arr,pivot+1,right)
+            return arr
+        
+       
+        
+        return quick(nums,0,len(nums)-1)
+        #  arr
+        # return quick(nums)
+        # # return nums
+
+        # def merge(arr,left,mid,right):   
+        #     print(left,mid,right)
+        #     arr1=arr[left:mid+1]
+        #     arr2=arr[mid+1:right+1]
+        #     arr3=[0]*(len(arr1)+len(arr2))
+        #     i=0
+        #     j=0
+        #     k=left
+        #     while i<len(arr1) and j<len(arr2):
+        #         if arr1[i]<arr2[j]:
+        #             arr[k]=arr1[i]
+        #             i+=1
+        #         else:
+        #             arr[k]=arr2[j]
+        #             j+=1
+        #         k+=1
+        #     while i<len(arr1):
+        #         arr[k]=arr1[i]
+        #         i+=1
+        #         k+=1
+        #     while j<len(arr2):
+        #         arr[k]=arr2[j]
+        #         j+=1
+        #         k+=1
+        #     # print(arr1[:])
+        #     # print(arr2[:])
+        #     # print(arr3[:])
+            
+    
+
+        # def divide(arr,left,right):
+        #     print(left,right)
+        #     if left<right:
+        #         mid=(left+right)//2
+        #         divide(arr,left,mid)
+        #         divide(arr,mid+1,right)
+        #         merge(arr,left,mid,right)
+            
+        # n=len(nums)
+        # divide(nums,0,n-1)
+        # return nums
